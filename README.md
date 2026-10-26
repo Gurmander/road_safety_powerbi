@@ -1,4 +1,3 @@
-cat > README.md << 'EOF'
 # BC Road Safety & Claims Risk Analytics (Power BI)
 
 Power BI report on ICBC's public crash and vehicle data (2021–2025): how crashes are trending in British Columbia, and which municipalities have the highest crash rate per vehicle.
@@ -79,5 +78,3 @@ dim_Municipality ─┬─< fact_Crashes >─┬─ dim_Year
 2. The queries currently point to `D:\road_safety_powerbi\data\raw\`. Update the path in Power Query (Home → Transform data → Source step) to your clone location, then refresh.
 
 The project is saved in **PBIP format** (TMDL for the model, PBIR for the report), so every query, measure and visual change is diffable in Git.
-
-EOF
