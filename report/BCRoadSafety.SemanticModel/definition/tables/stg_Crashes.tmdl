@@ -1,0 +1,50 @@
+table stg_Crashes
+	lineageTag: 351d5f30-a697-47b8-bea2-7f369e0769d2
+
+	column Municipality
+		dataType: string
+		lineageTag: 22dbaea9-e479-4904-92f4-9db7e8d35497
+		summarizeBy: none
+		sourceColumn: Municipality
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 81b3b932-873b-4835-ac66-7af7c64c7dac
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Crashes
+		dataType: int64
+		formatString: 0
+		lineageTag: 591957c0-bc5a-4ef4-8f49-570fcd05760f
+		summarizeBy: sum
+		sourceColumn: Crashes
+
+		annotation SummarizationSetBy = Automatic
+
+	partition stg_Crashes = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(
+				        File.Contents("D:\road_safety_powerbi\data\raw\icbc_crashes.csv"),
+				        [Delimiter = "#(tab)", Columns = 7, Encoding = 1200, QuoteStyle = QuoteStyle.None]
+				    ),
+				    #"Promoted headers"      = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    #"Renamed municipality"  = Table.RenameColumns(#"Promoted headers", {{"", "Municipality"}}),
+				    #"Removed total column"  = Table.RemoveColumns(#"Renamed municipality", {"Grand Total"}),
+				    #"Removed total row"     = Table.SelectRows(#"Removed total column", each [Municipality] <> "Grand Total"),
+				    #"Unpivoted years"       = Table.UnpivotOtherColumns(#"Removed total row", {"Municipality"}, "Year", "Crashes"),
+				    #"Typed columns"         = Table.TransformColumnTypes(#"Unpivoted years", {{"Year", Int64.Type}, {"Crashes", Int64.Type}}, "en-US"),
+				    #"Removed empty years"   = Table.SelectRows(#"Typed columns", each [Crashes] <> null),
+				    #"Cleaned municipality"  = Table.TransformColumns(#"Removed empty years", {{"Municipality", each Text.Proper(Text.Trim(_)), type text}})
+				in
+				    #"Cleaned municipality"
+
+	annotation PBI_ResultType = Table
+

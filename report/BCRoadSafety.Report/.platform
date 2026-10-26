@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "BCRoadSafety"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "357dec19-7810-488a-92f3-bb9544e42aa8"
+  }
+}
