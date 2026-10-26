@@ -1,0 +1,21 @@
+expression chk_UnmatchedMunicipalities =
+		let
+		  Source = Table.NestedJoin(stg_Crashes, {"Municipality"}, stg_Vehicles, {"Municipality"}, "stg_Vehicles", JoinKind.LeftAnti),
+		  #"Grouped rows" = Table.Group(Source, {"Municipality"}, {{"TotalCrashes", each List.Sum([Crashes]), type nullable number}}),
+		  #"Sorted rows" = Table.Sort(#"Grouped rows", {{"TotalCrashes", Order.Descending}})
+		in
+		  #"Sorted rows"
+	lineageTag: 8c2b610b-12a2-4c0a-8769-043f41b8b317
+
+	annotation PBI_ResultType = Table
+
+expression chk_VehiclesWithoutCrashes =
+		let
+		  Source = Table.NestedJoin(stg_Vehicles, {"Municipality"}, stg_Crashes, {"Municipality"}, "stg_Crashes", JoinKind.LeftAnti),
+		  #"Grouped rows" = Table.Group(Source, {"Municipality"}, {{"AvgVehicles", each List.Average([Vehicles]), type nullable number}})
+		in
+		  #"Grouped rows"
+	lineageTag: 0ef16e25-ef15-40cc-8363-cfde49212fae
+
+	annotation PBI_ResultType = Table
+

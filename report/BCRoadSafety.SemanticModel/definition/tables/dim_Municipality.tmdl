@@ -1,0 +1,25 @@
+table dim_Municipality
+	lineageTag: 35aefd46-d3e8-4018-bf81-8178d6f5d590
+
+	column Municipality
+		dataType: string
+		lineageTag: 2fb2ae8d-c325-48f7-b0c7-72d1576df4fa
+		summarizeBy: none
+		sourceColumn: Municipality
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_Municipality = m
+		mode: import
+		source =
+				let
+				  Source = Table.Combine({stg_Crashes, stg_Vehicles}),
+				  #"Removed other columns" = Table.SelectColumns(Source, {"Municipality"}),
+				  #"Removed duplicates" = Table.Distinct(#"Removed other columns", {"Municipality"}),
+				  #"Sorted rows" = Table.Sort(#"Removed duplicates", {{"Municipality", Order.Ascending}}),
+				  #"Removed duplicates 1" = Table.Distinct(#"Sorted rows", {"Municipality"})
+				in
+				  #"Removed duplicates 1"
+
+	annotation PBI_ResultType = Table
+

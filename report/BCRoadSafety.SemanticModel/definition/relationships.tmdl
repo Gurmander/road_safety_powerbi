@@ -1,0 +1,16 @@
+relationship AutoDetected_5c2fc801-aa73-4bdf-94d4-016eebaaf892
+	fromColumn: stg_Crashes.Municipality
+	toColumn: dim_Municipality.Municipality
+
+relationship AutoDetected_523a76a5-30da-4a30-95c6-d7cca226f69d
+	fromColumn: stg_Vehicles.Municipality
+	toColumn: dim_Municipality.Municipality
+
+relationship AutoDetected_4fce0449-22a3-4dca-b98a-2be69ec75998
+	fromColumn: stg_Crashes.Year
+	toColumn: dim_Year.Year
+
+relationship AutoDetected_12e15f3b-86f8-4e57-bd17-c15b3687571e
+	fromColumn: stg_Vehicles.Year
+	toColumn: dim_Year.Year
+

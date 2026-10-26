@@ -1,0 +1,49 @@
+table stg_Vehicles
+	lineageTag: 409b445b-bc51-4dbd-8d67-ae2aef9ff739
+
+	column Municipality
+		dataType: string
+		lineageTag: 0a7e03fb-e383-4c6b-8edf-48f98c42068a
+		summarizeBy: none
+		sourceColumn: Municipality
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: f87ddf4d-fc52-4753-8615-860c94bc9f52
+		summarizeBy: none
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Vehicles
+		dataType: int64
+		formatString: 0
+		lineageTag: e861a4da-f1f3-4541-94dc-38f2486acd3d
+		summarizeBy: sum
+		sourceColumn: Vehicles
+
+		annotation SummarizationSetBy = Automatic
+
+	partition stg_Vehicles = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(File.Contents("D:\road_safety_powerbi\data\raw\icbc_vehicle_population.csv"), [Delimiter = "#(tab)", Columns = 6, Encoding = 1200, QuoteStyle = QuoteStyle.None]),
+				  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				  #"Renamed columns" = Table.RenameColumns(#"Promoted headers", {{"", "Municipality"}}),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Renamed columns", {{"Municipality", type text}, {"2021", Int64.Type}, {"2022", Int64.Type}, {"2023", Int64.Type}, {"2024", Int64.Type}, {"2025", Int64.Type}}, "en-US"),
+				  #"Filtered rows" = Table.SelectRows(#"Changed column type", each ([Municipality] <> "Grand Total")),
+				  #"Unpivoted other columns" = Table.UnpivotOtherColumns(#"Filtered rows", {"Municipality"}, "Attribute", "Value"),
+				  #"Renamed columns 1" = Table.RenameColumns(#"Unpivoted other columns", {{"Attribute", "Year"}, {"Value", "Vehicles"}}),
+				  #"Changed column type 1" = Table.TransformColumnTypes(#"Renamed columns 1", {{"Year", Int64.Type}}, "en-CA"),
+				  #"Trimmed text" = Table.TransformColumns(#"Changed column type 1", {{"Municipality", each Text.Trim(_), type nullable text}}),
+				  #"Capitalized each word" = Table.TransformColumns(#"Trimmed text", {{"Municipality", each Text.Proper(_), type nullable text}}),
+				  #"Changed column type 2" = Table.TransformColumnTypes(#"Capitalized each word", {{"Vehicles", Int64.Type}})
+				in
+				  #"Changed column type 2"
+
+	annotation PBI_ResultType = Table
+

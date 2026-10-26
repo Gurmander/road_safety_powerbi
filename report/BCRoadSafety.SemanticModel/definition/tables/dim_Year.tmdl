@@ -1,0 +1,25 @@
+table dim_Year
+	lineageTag: 8024f4b9-ce50-4dce-a753-c6539de32fe9
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 436cb85d-b15e-42da-9fa2-0a0725630813
+		summarizeBy: none
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_Year = m
+		mode: import
+		source =
+				let
+				  Source = Table.Combine({stg_Crashes, stg_Vehicles}),
+				  #"Removed other columns" = Table.SelectColumns(Source, {"Year"}),
+				  #"Removed duplicates" = Table.Distinct(#"Removed other columns", {"Year"}),
+				  #"Sorted rows" = Table.Sort(#"Removed duplicates", {{"Year", Order.Ascending}})
+				in
+				  #"Sorted rows"
+
+	annotation PBI_ResultType = Table
+

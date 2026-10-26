@@ -13,7 +13,7 @@ table stg_Crashes
 		dataType: int64
 		formatString: 0
 		lineageTag: 81b3b932-873b-4835-ac66-7af7c64c7dac
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: Year
 
 		annotation SummarizationSetBy = Automatic
