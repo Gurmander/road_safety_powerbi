@@ -14,7 +14,7 @@ table dim_Year
 		mode: import
 		source =
 				let
-				  Source = Table.Combine({stg_Crashes, stg_Vehicles}),
+				  Source = Table.Combine({fact_Crashes, fact_Vehicles}),
 				  #"Removed other columns" = Table.SelectColumns(Source, {"Year"}),
 				  #"Removed duplicates" = Table.Distinct(#"Removed other columns", {"Year"}),
 				  #"Sorted rows" = Table.Sort(#"Removed duplicates", {{"Year", Order.Ascending}})

@@ -1,20 +1,26 @@
-table stg_Crashes
+table fact_Crashes
 	lineageTag: 351d5f30-a697-47b8-bea2-7f369e0769d2
 
 	column Municipality
 		dataType: string
+		isHidden
 		lineageTag: 22dbaea9-e479-4904-92f4-9db7e8d35497
 		summarizeBy: none
 		sourceColumn: Municipality
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
 	column Year
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: 81b3b932-873b-4835-ac66-7af7c64c7dac
 		summarizeBy: none
 		sourceColumn: Year
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -27,7 +33,7 @@ table stg_Crashes
 
 		annotation SummarizationSetBy = Automatic
 
-	partition stg_Crashes = m
+	partition fact_Crashes = m
 		mode: import
 		source =
 				let

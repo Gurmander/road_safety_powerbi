@@ -10,33 +10,8 @@
       "nodes": [
         {
           "location": {
-            "x": 0,
-            "y": 36
-          },
-          "nodeIndex": "stg_Crashes",
-          "nodeLineageTag": "351d5f30-a697-47b8-bea2-7f369e0769d2",
-          "size": {
-            "height": 152,
-            "width": 234
-          },
-          "zIndex": 0
-        },
-        {
-          "location": {
-            "x": 284,
-            "y": 0
-          },
-          "nodeIndex": "stg_Vehicles",
-          "size": {
-            "height": 224,
-            "width": 234
-          },
-          "zIndex": 0
-        },
-        {
-          "location": {
-            "x": 568,
-            "y": 60
+            "x": 257,
+            "y": 45.5
           },
           "nodeIndex": "dim_Municipality",
           "nodeLineageTag": "35aefd46-d3e8-4018-bf81-8178d6f5d590",
@@ -48,11 +23,50 @@
         },
         {
           "location": {
-            "x": 852,
-            "y": 60
+            "x": 580,
+            "y": 40.5
           },
           "nodeIndex": "dim_Year",
           "nodeLineageTag": "8024f4b9-ce50-4dce-a753-c6539de32fe9",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 255,
+            "y": 287.5
+          },
+          "nodeIndex": "fact_Crashes",
+          "nodeLineageTag": "351d5f30-a697-47b8-bea2-7f369e0769d2",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 580,
+            "y": 235.5
+          },
+          "nodeIndex": "fact_Vehicles",
+          "nodeLineageTag": "409b445b-bc51-4dbd-8d67-ae2aef9ff739",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 920,
+            "y": 49
+          },
+          "nodeIndex": "_Measures",
+          "nodeLineageTag": "fa6c79b7-39a5-4028-a11f-c777ca8d0ff2",
           "size": {
             "height": 104,
             "width": 234

@@ -1,6 +1,6 @@
 expression chk_UnmatchedMunicipalities =
 		let
-		  Source = Table.NestedJoin(stg_Crashes, {"Municipality"}, stg_Vehicles, {"Municipality"}, "stg_Vehicles", JoinKind.LeftAnti),
+		  Source = Table.NestedJoin(fact_Crashes, {"Municipality"}, fact_Vehicles, {"Municipality"}, "stg_Vehicles", JoinKind.LeftAnti),
 		  #"Grouped rows" = Table.Group(Source, {"Municipality"}, {{"TotalCrashes", each List.Sum([Crashes]), type nullable number}}),
 		  #"Sorted rows" = Table.Sort(#"Grouped rows", {{"TotalCrashes", Order.Descending}})
 		in
@@ -11,7 +11,7 @@ expression chk_UnmatchedMunicipalities =
 
 expression chk_VehiclesWithoutCrashes =
 		let
-		  Source = Table.NestedJoin(stg_Vehicles, {"Municipality"}, stg_Crashes, {"Municipality"}, "stg_Crashes", JoinKind.LeftAnti),
+		  Source = Table.NestedJoin(fact_Vehicles, {"Municipality"}, fact_Crashes, {"Municipality"}, "stg_Crashes", JoinKind.LeftAnti),
 		  #"Grouped rows" = Table.Group(Source, {"Municipality"}, {{"AvgVehicles", each List.Average([Vehicles]), type nullable number}})
 		in
 		  #"Grouped rows"

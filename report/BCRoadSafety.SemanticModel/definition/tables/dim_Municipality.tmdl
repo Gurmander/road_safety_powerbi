@@ -13,7 +13,7 @@ table dim_Municipality
 		mode: import
 		source =
 				let
-				  Source = Table.Combine({stg_Crashes, stg_Vehicles}),
+				  Source = Table.Combine({fact_Crashes, fact_Vehicles}),
 				  #"Removed other columns" = Table.SelectColumns(Source, {"Municipality"}),
 				  #"Removed duplicates" = Table.Distinct(#"Removed other columns", {"Municipality"}),
 				  #"Sorted rows" = Table.Sort(#"Removed duplicates", {{"Municipality", Order.Ascending}}),

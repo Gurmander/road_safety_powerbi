@@ -9,14 +9,15 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBI_QueryOrder = ["stg_Crashes","stg_Vehicles","chk_UnmatchedMunicipalities","chk_VehiclesWithoutCrashes","dim_Municipality","dim_Year"]
+annotation PBI_QueryOrder = ["fact_Crashes","fact_Vehicles","chk_UnmatchedMunicipalities","chk_VehiclesWithoutCrashes","dim_Municipality","dim_Year","_Measures"]
 
 annotation PBI_ProTooling = ["DevMode"]
 
-ref table stg_Crashes
-ref table stg_Vehicles
+ref table fact_Crashes
+ref table fact_Vehicles
 ref table dim_Municipality
 ref table dim_Year
+ref table _Measures
 
 ref cultureInfo en-CA
 

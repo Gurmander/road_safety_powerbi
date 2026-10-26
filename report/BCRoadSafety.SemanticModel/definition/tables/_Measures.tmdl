@@ -1,0 +1,42 @@
+table _Measures
+	lineageTag: fa6c79b7-39a5-4028-a11f-c777ca8d0ff2
+
+	measure 'Total Crashes' = SUM ( fact_Crashes[Crashes] )
+		formatString: #,0
+		lineageTag: 0afaaae5-b29d-4a38-b815-b5f05f766993
+
+	measure 'Total Vehicles' = SUM ( fact_Vehicles[Vehicles] )
+		formatString: #,0
+		lineageTag: f96d796e-a2f6-4848-8420-f5d903745dc1
+
+	measure 'Crashes per 1,000 Vehicles' =
+			
+			DIVIDE ( [Total Crashes], [Total Vehicles] ) * 1000
+		formatString: 0.0
+		lineageTag: b3619ad8-00a1-4fe2-9661-5af81ea3221f
+
+	measure 'Crashes YoY %' =
+			
+			IF (
+			    HASONEVALUE ( dim_Year[Year] ),
+			    VAR CurrentYear = SELECTEDVALUE ( dim_Year[Year] )
+			    VAR CurrentCrashes = [Total Crashes]
+			    VAR PriorCrashes =
+			        CALCULATE ( [Total Crashes], dim_Year[Year] = CurrentYear - 1 )
+			    RETURN
+			        DIVIDE ( CurrentCrashes - PriorCrashes, PriorCrashes )
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 23138472-5c48-407f-9715-614801776167
+
+	partition _Measures = m
+		mode: import
+		source =
+				let
+				  Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Removed Columns" = Table.RemoveColumns(Source,{"Column1"})
+				in
+				  #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+
