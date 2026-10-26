@@ -1,19 +1,19 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
-  "name": "3e582893b4a9558e465b",
+  "name": "8ea00da4acb3b9a3d02b",
   "position": {
-    "x": 270,
-    "y": 152.5,
+    "x": 254.44444444444443,
+    "y": 276.66666666666669,
     "z": 0,
-    "height": 260,
-    "width": 610,
+    "height": 432.22222222222223,
+    "width": 451.11111111111109,
     "tabOrder": 0
   },
   "visual": {
-    "visualType": "tableEx",
+    "visualType": "lineClusteredColumnComboChart",
     "query": {
       "queryState": {
-        "Values": {
+        "Category": {
           "projections": [
             {
               "field": {
@@ -27,8 +27,13 @@
                 }
               },
               "queryRef": "dim_Year.Year",
-              "nativeQueryRef": "Year"
-            },
+              "nativeQueryRef": "Year",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
             {
               "field": {
                 "Measure": {
@@ -42,21 +47,11 @@
               },
               "queryRef": "_Measures.Total Crashes",
               "nativeQueryRef": "Total Crashes"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "Total Vehicles"
-                }
-              },
-              "queryRef": "_Measures.Total Vehicles",
-              "nativeQueryRef": "Total Vehicles"
-            },
+            }
+          ]
+        },
+        "Y2": {
+          "projections": [
             {
               "field": {
                 "Measure": {
@@ -70,31 +65,55 @@
               },
               "queryRef": "_Measures.Crashes per 1,000 Vehicles",
               "nativeQueryRef": "Crashes per 1,000 Vehicles"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "Crashes YoY %"
-                }
-              },
-              "queryRef": "_Measures.Crashes YoY %",
-              "nativeQueryRef": "Crashes YoY %"
             }
           ]
         }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Measures"
+                  }
+                },
+                "Property": "Total Crashes"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
       }
+    },
+    "objects": {
+      "general": [
+        {
+          "properties": {}
+        }
+      ],
+      "categoryAxis": [
+        {
+          "properties": {
+            "axisType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Categorical'"
+                }
+              }
+            }
+          }
+        }
+      ]
     },
     "drillFilterOtherVisuals": true
   },
   "filterConfig": {
     "filters": [
       {
-        "name": "9ee6852b9497724bfd20",
+        "name": "c30002a4286911a121ab",
         "field": {
           "Column": {
             "Expression": {
@@ -108,7 +127,7 @@
         "type": "Advanced"
       },
       {
-        "name": "4a14ed68728143eb7281",
+        "name": "d70beb7ebc3e7edb1995",
         "field": {
           "Measure": {
             "Expression": {
@@ -122,21 +141,7 @@
         "type": "Advanced"
       },
       {
-        "name": "cddf22025ffcb3368f64",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Total Vehicles"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "8c85112e5c89f3b94cd1",
+        "name": "3a208394d7eba1ccf573",
         "field": {
           "Measure": {
             "Expression": {
@@ -145,20 +150,6 @@
               }
             },
             "Property": "Crashes per 1,000 Vehicles"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "7f7cd64d49efcc669fe3",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Crashes YoY %"
           }
         },
         "type": "Advanced"

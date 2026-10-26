@@ -29,6 +29,16 @@ table _Measures
 		formatString: 0.0%;-0.0%;0.0%
 		lineageTag: 23138472-5c48-407f-9715-614801776167
 
+	measure 'Crash Rate (5k+ vehicles)' =
+			
+			VAR YearsSelected = COUNTROWS ( VALUES ( dim_Year[Year] ) )
+			VAR AvgVehicles = DIVIDE ( [Total Vehicles], YearsSelected )
+			RETURN
+			    IF ( AvgVehicles >= 5000, [Crashes per 1,000 Vehicles] )
+		lineageTag: ed601829-abbb-498a-9242-a7eec5510b0f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	partition _Measures = m
 		mode: import
 		source =
