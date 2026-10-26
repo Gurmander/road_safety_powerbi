@@ -58,10 +58,6 @@ Star schema: two fact tables sharing two conformed dimensions, with one-to-many,
 
 ![Model](docs/screenshots/model.png)
 
-dim_Municipality ─┬─< fact_Crashes >─┬─ dim_Year
-└─< fact_Vehicles >┘
-
-
 ## Measures (DAX)
 
 | Measure | Logic |
